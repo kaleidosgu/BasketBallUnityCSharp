@@ -17,8 +17,8 @@ TagManager:
   - 
   - BallLayer
   - PlayerLayer
-  - 
-  - 
+  - BasketTrigger
+  - BallCore
   - 
   - 
   - 

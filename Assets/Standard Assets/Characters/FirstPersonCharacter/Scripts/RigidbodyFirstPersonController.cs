@@ -154,7 +154,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (m_RigidBody.velocity.sqrMagnitude <
                     (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
                 {
-                    m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+                    //m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+                    m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Force);
                 }
             }
 
@@ -167,6 +168,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.drag = 0f;
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
                     m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+                    //m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Force);
                     m_Jumping = true;
                 }
 
@@ -236,7 +238,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 // Rotate the rigidbody velocity to match the new direction that the character is looking
                 Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
-                m_RigidBody.velocity = velRotation*m_RigidBody.velocity;
+
+                //Debug.Log(string.Format("rotation{0} velocity{1}", velRotation, m_RigidBody.velocity));
+                m_RigidBody.velocity = velRotation * m_RigidBody.velocity;
+                //Debug.Log(string.Format("after velocity {0}", m_RigidBody.velocity));
             }
         }
 

@@ -78,6 +78,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         public Camera cam;
+
+        public float RateOfScale;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
@@ -168,7 +170,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.drag = 0f;
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
                     m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
-                    //m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Force);
                     m_Jumping = true;
                 }
 
@@ -250,8 +251,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_PreviouslyGrounded = m_IsGrounded;
             RaycastHit hitInfo;
-            if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
-                                   ((m_Capsule.height/2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+            bool bCasted = Physics.SphereCast(transform.position, m_Capsule.radius * RateOfScale * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
+                                   ((m_Capsule.height * RateOfScale / 2f) - m_Capsule.radius * RateOfScale) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+            if (bCasted == true)
             {
                 m_IsGrounded = true;
                 m_GroundContactNormal = hitInfo.normal;

@@ -64,6 +64,7 @@
      <Compile Include="Assets\Script\BallComponent.cs" />
      <Compile Include="Assets\Script\BallCoreComponent.cs" />
      <Compile Include="Assets\Script\BasketTriggerComponent.cs" />
+     <Compile Include="Assets\Script\Example.cs" />
      <Compile Include="Assets\Script\ShootComponent.cs" />
      <Compile Include="Assets\Script\UIScripts\UIScoreComponent.cs" />
      <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />

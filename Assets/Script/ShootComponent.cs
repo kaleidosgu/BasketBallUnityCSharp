@@ -12,6 +12,8 @@ public class ShootComponent : MonoBehaviour {
 
     public Transform TakeBallPos;
     public Transform ShootBallPos;
+
+    public float AngleOfShoot;
 	// Use this for initialization
 	void Start () {
 		
@@ -25,7 +27,14 @@ public class ShootComponent : MonoBehaviour {
         else if( Input.GetButtonUp("Fire1"))
         {
             GameObject objBall = Instantiate(BallPrefab, TakeBallPos.position, Quaternion.identity);
-            objBall.GetComponent<Rigidbody>().AddForce(PlayerCamera.transform.forward * ShootForceValue);
+            //原先的版本
+            //objBall.GetComponent<Rigidbody>().AddForce(PlayerCamera.transform.forward * ShootForceValue);
+
+            //transform.Rotate()
+            float fAngleOfCamera = Vector3.Angle(PlayerCamera.transform.forward, transform.forward);
+            Quaternion rot = Quaternion.AngleAxis(fAngleOfCamera + AngleOfShoot,- PlayerCamera.transform.right);
+            Vector3 vecShoot = rot * PlayerCamera.transform.forward;
+            objBall.GetComponent<Rigidbody>().AddForce(vecShoot * ShootForceValue);
         }
 	}
 

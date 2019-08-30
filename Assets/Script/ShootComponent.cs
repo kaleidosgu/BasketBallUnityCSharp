@@ -30,10 +30,10 @@ public class ShootComponent : MonoBehaviour {
             //原先的版本
             //objBall.GetComponent<Rigidbody>().AddForce(PlayerCamera.transform.forward * ShootForceValue);
 
-            //transform.Rotate()
             float fAngleOfCamera = Vector3.Angle(PlayerCamera.transform.forward, transform.forward);
             Quaternion rot = Quaternion.AngleAxis(fAngleOfCamera + AngleOfShoot,- PlayerCamera.transform.right);
             Vector3 vecShoot = rot * PlayerCamera.transform.forward;
+            //Vector3 vecShoot = PlayerCamera.transform.rotation * PlayerCamera.transform.forward;
             objBall.GetComponent<Rigidbody>().AddForce(vecShoot * ShootForceValue);
         }
 	}
